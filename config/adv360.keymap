@@ -11,88 +11,17 @@
 #define QWERTY 0
 #define QWERTYP 1
 #define DVORAKP 2
-#define COLEMAK 3
-#define KEYPAD 4
-#define FN 5
-#define MOD 6
+#define DVORAK 3
+#define COLEMAKP 4
+#define COLEMAK 5
+#define GALLIUMP 6
+#define GALLIUM 7
+#define SYMBOL 8
+#define KEYPAD 9
+#define FN 10
+#define MOD 11
 
 / {
-    combos {
-        compatible = "zmk,combos";
-        
-        // Combos for GUI+number keys (for Hyprland workspace switching)
-        combo_gui_1 {
-            timeout-ms = <200>;
-            key-positions = <29 1>; // LGUI + pkp_n1 (plus/1 key)
-            bindings = <&kp LG(N1)>;
-            layers = <1 2 3>; // Only active in programming layers
-        };
-        
-        combo_gui_2 {
-            timeout-ms = <200>;
-            key-positions = <29 2>; // LGUI + lkp_n2 (left_bracket/2 key)
-            bindings = <&kp LG(N2)>;
-            layers = <1 2 3>; // Only active in programming layers
-        };
-        
-        combo_gui_3 {
-            timeout-ms = <200>;
-            key-positions = <29 3>; // LGUI + lkp_n3 (left_brace/3 key)
-            bindings = <&kp LG(N3)>;
-            layers = <1 2 3>; // Only active in programming layers
-        };
-        
-        combo_gui_4 {
-            timeout-ms = <200>;
-            key-positions = <29 4>; // LGUI + lkp_n4 (left_parenthesis/4 key)
-            bindings = <&kp LG(N4)>;
-            layers = <1 2 3>; // Only active in programming layers
-        };
-        
-        combo_gui_5 {
-            timeout-ms = <200>;
-            key-positions = <29 5>; // LGUI + akp_n5 (amps/5 key)
-            bindings = <&kp LG(N5)>;
-            layers = <1 2 3>; // Only active in programming layers
-        };
-        
-        // GUI+SHIFT combinations for window movement
-        combo_gui_shift_1 {
-            timeout-ms = <200>;
-            key-positions = <29 20 1>; // LGUI + LSHIFT + pkp_n1
-            bindings = <&kp LG(LS(N1))>;
-            layers = <1 2 3>; // Only active in programming layers
-        };
-        
-        combo_gui_shift_2 {
-            timeout-ms = <200>;
-            key-positions = <29 20 2>; // LGUI + LSHIFT + lkp_n2
-            bindings = <&kp LG(LS(N2))>;
-            layers = <1 2 3>; // Only active in programming layers
-        };
-        
-        combo_gui_shift_3 {
-            timeout-ms = <200>;
-            key-positions = <29 20 3>; // LGUI + LSHIFT + lkp_n3
-            bindings = <&kp LG(LS(N3))>;
-            layers = <1 2 3>; // Only active in programming layers
-        };
-        
-        combo_gui_shift_4 {
-            timeout-ms = <200>;
-            key-positions = <29 20 4>; // LGUI + LSHIFT + lkp_n4
-            bindings = <&kp LG(LS(N4))>;
-            layers = <1 2 3>; // Only active in programming layers
-        };
-        
-        combo_gui_shift_5 {
-            timeout-ms = <200>;
-            key-positions = <29 20 5>; // LGUI + LSHIFT + akp_n5
-            bindings = <&kp LG(LS(N5))>;
-            layers = <1 2 3>; // Only active in programming layers
-        };
-    };
-    
     behaviors {
         #include "macros.dtsi"
         #include "version.dtsi"
@@ -135,12 +64,23 @@
             global-quick-tap;
         };
 
+        sp_sym: space_symbol {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SPACE_SYMBOL";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <150>;
+            flavor = "balanced";
+            bindings = <&mo>, <&kp>;
+        };
+
         gpipe: grave_pipe {
             compatible = "zmk,behavior-mod-morph";
             label = "grave_pipe";
             #binding-cells = <0>;
             bindings = <&kp GRAVE>, <&kp PIPE>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         ppipe: pipe_pipe {
@@ -148,7 +88,7 @@
             label = "pipe_pipe";
             #binding-cells = <0>;
             bindings = <&kp PIPE>, <&kp PIPE>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         pkp_n1: plus_kp_n1 {
@@ -156,7 +96,7 @@
             label = "plus_kp_n1";
             #binding-cells = <0>;
             bindings = <&kp PLUS>, <&kp N1>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         lkp_n2: left_bracket_kp_n2 {
@@ -164,7 +104,7 @@
             label = "left_bracket_kp_n2";
             #binding-cells = <0>;
             bindings = <&kp LEFT_BRACKET>, <&kp N2>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         lkp_n3: left_brace_kp_n3 {
@@ -172,7 +112,7 @@
             label = "left_brace_kp_n3";
             #binding-cells = <0>;
             bindings = <&kp LEFT_BRACE>, <&kp N3>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         lkp_n4: left_parenthesis_kp_n4 {
@@ -180,7 +120,7 @@
             label = "left_parenthesis_kp_n4";
             #binding-cells = <0>;
             bindings = <&kp LEFT_PARENTHESIS>, <&kp N4>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         akp_n5: amps_kp_n5 {
@@ -188,7 +128,7 @@
             label = "amps_kp_n5";
             #binding-cells = <0>;
             bindings = <&kp AMPS>, <&kp N5>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         ekp_n6: equal_kp_n6 {
@@ -196,7 +136,7 @@
             label = "equal_kp_n6";
             #binding-cells = <0>;
             bindings = <&kp EQUAL>, <&kp N6>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         rkp_n7: right_parenthesis_kp_n7 {
@@ -204,7 +144,7 @@
             label = "right_parenthesis_kp_n7";
             #binding-cells = <0>;
             bindings = <&kp RIGHT_PARENTHESIS>, <&kp N7>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         rkp_n8: right_brace_kp_n8 {
@@ -212,7 +152,7 @@
             label = "right_brace_kp_n8";
             #binding-cells = <0>;
             bindings = <&kp RIGHT_BRACE>, <&kp N8>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         rkp_n9: right_bracket_kp_n9 {
@@ -220,7 +160,7 @@
             label = "right_bracket_kp_n9";
             #binding-cells = <0>;
             bindings = <&kp RIGHT_BRACKET>, <&kp N9>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         skp_n0: star_kp_n0 {
@@ -228,7 +168,7 @@
             label = "star_kp_n0";
             #binding-cells = <0>;
             bindings = <&kp STAR>, <&kp N0>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         eprcnt: excl_prcnt {
@@ -236,7 +176,7 @@
             label = "excl_prcnt";
             #binding-cells = <0>;
             bindings = <&kp EXCL>, <&kp PRCNT>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         dgrave: dllr_grave {
@@ -244,14 +184,14 @@
             label = "dllr_grave";
             #binding-cells = <0>;
             bindings = <&kp DLLR>, <&kp GRAVE>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
         dtilde: dllr_tilde {
             compatible = "zmk,behavior-mod-morph";
             label = "dllr_tilde";
             #binding-cells = <0>;
             bindings = <&kp DLLR>, <&kp TILDE>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         ggrave: grave_grave {
@@ -259,7 +199,7 @@
             label = "grave_grave";
             #binding-cells = <0>;
             bindings = <&kp GRAVE>, <&kp GRAVE>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         pgrave: pipe_grave {
@@ -267,7 +207,7 @@
             label = "pipe_grave";
             #binding-cells = <0>;
             bindings = <&kp PIPE>, <&kp GRAVE>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         bhash: bslh_hash {
@@ -275,7 +215,7 @@
             label = "bslh_hash";
             #binding-cells = <0>;
             bindings = <&kp BSLH>, <&kp HASH>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         acaret: at_caret {
@@ -283,7 +223,7 @@
             label = "at_caret";
             #binding-cells = <0>;
             bindings = <&kp AT>, <&kp CARET>;
-            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
     };
 
@@ -294,8 +234,8 @@
             display-name = "0 qwerty";
             bindings = <
                 &kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &tog KEYPAD                                                 &mo MOD    &kp N6  &kp N7    &kp N8     &kp N9    &kp N0    &kp MINUS
-                &kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &to QWERTYP                                                 &kp PSCRN  &kp Y   &kp U     &kp I      &kp O     &kp P     &kp BSLH
-                &kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &to DVORAKP  &kp LCTRL  &kp LALT      &kp LGUI   &kp RCTRL  &kp INS    &kp H   &kp J     &kp K      &kp L     &kp SEMI  &kp SQT
+                &kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   xxxxxx                                                      &kp PSCRN  &kp Y   &kp U     &kp I      &kp O     &kp P     &kp BSLH
+                &kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   xxxxxx       &kp LALT   &kp LGUI      &kp LGUI   &kp RCTRL  &kp INS    &kp H   &kp J     &kp K      &kp L     &kp SEMI  &kp SQT
                 &kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                           &kp HOME      &kp PG_UP                        &kp N   &kp M     &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
                 &kp LCTRL  &kp GRAVE  &mo FN    &kp LEFT  &kp RIGHT          &kp SPACE    &kp DEL    &kp END       &kp PG_DN  &kp ENTER  &kp BSPC           &kp UP    &kp DOWN   &kp LBKT  &kp RBKT  &mo FN
             >;
@@ -323,8 +263,19 @@
             >;
         };
 
+        dvorak {
+            display-name = "3 Dvorak";
+            bindings = <
+                ______     ______         ______     ______   ______   ______  ______                                      ______  ______  ______   ______   ______   ______   ______
+                ______     &kp SEMICOLON  &kp COMMA  &kp DOT  &kp P    &kp Y   ______                                      ______  &kp F   &kp G    &kp C    &kp R    &kp L    ______
+                ______     &kp A          &kp O      &kp E    &kp U    &kp I   ______      ______  ______  ______  ______  ______  &kp D   &kp H    &kp T    &kp N    &kp S    &kp MINUS
+                ______     &kp SQT        &kp Q      &kp J    &kp K    &kp X                       ______  ______                  &kp B   &kp M    &kp W    &kp V    &kp Z    ______
+                ______     ______         ______     ______   ______           &sp_sym SYMBOL SPACE  ______  ______  ______  ______  ______          ______   ______   ______   ______   ______
+            >;
+        };
+
         colemak_prog {
-            display-name = "3 Colemak Prog";
+            display-name = "4 Colemak Prog";
             bindings = <
                 &pgrave    &pkp_n1    &lkp_n2  &lkp_n3  &lkp_n4  &akp_n5  ______                                      ______  &ekp_n6  &rkp_n7  &rkp_n8    &rkp_n9     &skp_n0        &eprcnt
                 ______     &kp Q      &kp W    &kp F    &kp P    &kp B    ______                                      ______  &kp J    &kp L    &kp U      &kp Y       &kp SEMICOLON  &kp BSLH
@@ -334,8 +285,52 @@
             >;
         };
 
+        colemak {
+            display-name = "5 Colemak";
+            bindings = <
+                ______     ______   ______   ______   ______   ______  ______                                      ______  ______  ______   ______     ______      ______         ______
+                ______     &kp Q    &kp W    &kp F    &kp P    &kp B   ______                                      ______  &kp J   &kp L    &kp U      &kp Y       &kp SEMICOLON  ______
+                ______     &kp A    &kp R    &kp S    &kp T    &kp G   ______      ______  ______  ______  ______  ______  &kp M   &kp N    &kp E      &kp I       &kp O          &kp MINUS
+                ______     &kp Z    &kp X    &kp C    &kp D    &kp V                       ______  ______                  &kp K   &kp H    &kp COMMA  &kp PERIOD  &kp SLASH      ______
+                ______     ______   ______   ______   ______           &sp_sym SYMBOL SPACE  ______  ______  ______  ______  ______          ______   ______     ______      ______         ______
+            >;
+        };
+
+        gallium_prog {
+            display-name = "6 Gallium Prog";
+            bindings = <
+                &pgrave    &pkp_n1  &lkp_n2  &lkp_n3  &lkp_n4  &akp_n5  ______                                      ______  &ekp_n6  &rkp_n7  &rkp_n8   &rkp_n9   &skp_n0    &eprcnt
+                ______     &kp B    &kp L    &kp D    &kp C    &kp V    ______                                      ______  &kp J    &kp Y    &kp O     &kp U     &kp COMMA  &bhash
+                ______     &kp N    &kp R    &kp T    &kp S    &kp G    ______  ______  ______      ______  ______  ______  &kp P    &kp H    &kp A     &kp E     &kp I      &kp MINUS
+                ______     &kp X    &kp Q    &kp M    &kp W    &kp Z                    ______      ______                  &kp K    &kp F    &kp SQT   &kp SEMI  &kp DOT    ______
+                &mo FN     &dtilde  &kp CAPS ______   ______            ______  ______  ______      ______  ______  ______           ______   ______    &kp FSLH  &acaret    ______
+            >;
+        };
+
+        gallium {
+            display-name = "7 Gallium";
+            bindings = <
+                ______     ______   ______   ______   ______     ______  ______                                      ______  ______  ______   ______     ______    ______     ______
+                ______     &kp B    &kp L    &kp D    &kp C      &kp V   ______                                      ______  &kp J   &kp Y    &kp O      &kp U     &kp COMMA  ______
+                ______     &kp N    &kp R    &kp T    &kp S      &kp G   ______      ______  ______  ______  ______  ______  &kp P   &kp H    &kp A      &kp E     &kp I      &kp FSLH
+                ______     &kp X    &kp Q    &kp M    &kp W      &kp Z                       ______  ______                  &kp K   &kp F    &kp SQT    &kp SEMI  &kp DOT    ______
+                ______     ______   ______   ______   ______              &sp_sym SYMBOL SPACE  ______  ______  ______  ______  ______          ______   ______     ______    ______     ______
+            >;
+        };
+
+        symbol {
+            display-name = "8 Symbol";
+            bindings = <
+                ______  ______     ______    ______    ______    ______  ______                                      ______  ______    ______     ______     ______    ______    ______
+                ______  &kp TILDE  &kp EXCL  &kp AT    &kp HASH  &kp DLLR  ______                                  ______  &kp PRCNT &kp CARET  &kp AMPS   &kp STAR  &kp GRAVE ______
+                ______  &kp LBRC   &kp LPAR  &kp RPAR  &kp RBRC  &kp EQUAL ______  ______  ______  ______  ______  ______  &kp PLUS  &kp MINUS  &kp UNDER  &kp BSLH  &kp PIPE  ______
+                ______  &kp LT     &kp LBKT  &kp RBKT  &kp GT    &kp QMARK                 ______  ______                  &kp FSLH  &kp SQT    &kp DQT    &kp SEMI  &kp COLON ______
+                ______  ______     ______    ______    ______              ______  ______  ______    ______  ______  ______            ______     ______     ______    ______    ______
+            >;
+        };
+
         keypad {
-            display-name = "4 Kp";
+            display-name = "9 Kp";
             bindings = <
                 ______  ______  ______  ______  ______  ______  ______                                      ______     ______  &kp KP_NUM  &kp KP_EQUAL  &kp KP_DIVIDE  &kp KP_MULTIPLY  ______
                 ______  ______  ______  ______  ______  ______  ______                                      ______     ______  &kp KP_N7   &kp KP_N8     &kp KP_N9      &kp KP_MINUS     ______
@@ -346,21 +341,21 @@
         };
 
         fn {
-            display-name = "5 Fn";
+            display-name = "10 Fn";
             bindings = <
-                &kp F1  &kp F2  &kp F3     &kp F4  &kp F5  &kp F6  ______                                           ______  &kp F7  &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
-                ______  ______  ______     ______  ______  ______  &to QWERTY                                       xxxxxx  ______  ______  ______  ______   ______   ______
-                ______  ______  ______     ______  ______  ______  &to COLEMAK  ______  ______      ______  ______  xxxxxx  ______  ______  ______  ______   ______   ______
-                ______  ______  ______     ______  ______  ______                       ______      ______                  ______  ______  ______  ______   ______   ______
-                ______  ______  &kp K_APP  ______  ______          ______       ______  ______      ______  ______  ______          ______  ______  ______   ______   ______
+                &kp F1  &kp F2  &kp F3     &kp F4  &kp F5  &kp F6  ______                                                  ______          &kp F7  &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
+                ______  ______  ______     ______  ______  ______  ______                                                   ______          ______  ______  ______  ______   ______   ______
+                ______  ______  ______     ______  ______  ______  ______       ______  ______      ______  ______  ______          ______  ______  ______  ______   ______   ______
+                ______  ______  ______     ______  ______  ______                       ______      ______                          ______  ______  ______  ______   ______   ______
+                ______  ______  &kp K_APP  ______  ______          ______       ______  ______      ______  ______  ______                  ______  ______  ______   ______   ______
             >;
         };
 
         mod {
-            display-name = "6 Mod";
+            display-name = "11 Mod";
             bindings = <
                 xxxxxx          &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  xxxxxx                                                  ______                  xxxxxx  xxxxxx      xxxxxx      xxxxxx  xxxxxx  xxxxxx
-                xxxxxx          xxxxxx        xxxxxx        xxxxxx        xxxxxx        xxxxxx        &bootloader                                             &bootloader             xxxxxx  xxxxxx      xxxxxx      xxxxxx  xxxxxx  xxxxxx
+                xxxxxx          &to QWERTY    &to QWERTYP   &to DVORAK    &to DVORAKP   xxxxxx        &bootloader                                             &bootloader             xxxxxx  &to COLEMAK &to COLEMAKP &to GALLIUM &to GALLIUMP xxxxxx
                 &studio_unlock  xxxxxx        xxxxxx        xxxxxx        xxxxxx        xxxxxx        xxxxxx       xxxxxx  xxxxxx     &bt BT_CLR  xxxxxx      &rgb_ug RGB_MEFS_CMD 5  xxxxxx  xxxxxx      xxxxxx      xxxxxx  xxxxxx  xxxxxx
                 xxxxxx          xxxxxx        xxxxxx        xxxxxx        &macro_ver    xxxxxx                             xxxxxx     xxxxxx                                          xxxxxx  xxxxxx      xxxxxx      xxxxxx  xxxxxx  xxxxxx
                 xxxxxx          xxxxxx        xxxxxx        xxxxxx        xxxxxx                      xxxxxx       xxxxxx  xxxxxx     xxxxxx      &bl BL_TOG  &rgb_ug RGB_TOG                 &bl BL_INC  &bl BL_DEC  xxxxxx  xxxxxx  xxxxxx
