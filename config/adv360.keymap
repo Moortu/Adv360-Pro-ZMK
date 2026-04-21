@@ -96,7 +96,7 @@
             compatible = "zmk,behavior-mod-morph";
             label = "inner_plus_n1";
             #binding-cells = <0>;
-            bindings = <&kp PLUS>, <&kp N1>;
+            bindings = <&kp PIPE>, <&kp N1>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
         inner_n2: inner_lbkt_n2 {
@@ -124,14 +124,14 @@
             compatible = "zmk,behavior-mod-morph";
             label = "inner_amps_n5";
             #binding-cells = <0>;
-            bindings = <&kp AMPS>, <&kp N5>;
+            bindings = <&kp EQUAL>, <&kp N5>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
-        inner_n6: inner_equal_n6 {
+        inner_n6: inner_star_n6 {
             compatible = "zmk,behavior-mod-morph";
-            label = "inner_equal_n6";
+            label = "inner_star_n6";
             #binding-cells = <0>;
-            bindings = <&kp EQUAL>, <&kp N6>;
+            bindings = <&kp STAR>, <&kp N6>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
         inner_n7: inner_rpar_n7 {
@@ -157,9 +157,9 @@
         };
         inner_n0: inner_star_n0 {
             compatible = "zmk,behavior-mod-morph";
-            label = "inner_star_n0";
+            label = "inner_excl_n0";
             #binding-cells = <0>;
-            bindings = <&kp STAR>, <&kp N0>;
+            bindings = <&kp EXCL>, <&kp N0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
@@ -246,11 +246,11 @@
             keep-mods = <(MOD_LCTL|MOD_LGUI|MOD_LALT|MOD_RCTL|MOD_RGUI|MOD_RALT)>;
         };
 
-        eprcnt: excl_prcnt {
+        eprcnt: amps_prcnt {
             compatible = "zmk,behavior-mod-morph";
-            label = "excl_prcnt";
+            label = "amps_prcnt";
             #binding-cells = <0>;
-            bindings = <&kp EXCL>, <&kp PRCNT>;
+            bindings = <&kp AMPS>, <&kp PRCNT>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
@@ -277,11 +277,11 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
-        pgrave: pipe_grave {
+        pgrave: plus_grave {
             compatible = "zmk,behavior-mod-morph";
-            label = "pipe_grave";
+            label = "plus_grave";
             #binding-cells = <0>;
-            bindings = <&kp PIPE>, <&kp GRAVE>;
+            bindings = <&kp PLUS>, <&kp GRAVE>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
