@@ -1,0 +1,5 @@
+/home/moortu/projects/Adv360-Pro-ZMK-dvorak-programmers/.devenv/bootstrap/bootstrapLib.nix
+/home/moortu/projects/Adv360-Pro-ZMK-dvorak-programmers/.devenv/bootstrap/default.nix
+/home/moortu/projects/Adv360-Pro-ZMK-dvorak-programmers/devenv.lock
+/home/moortu/projects/Adv360-Pro-ZMK-dvorak-programmers/devenv.nix
+/home/moortu/projects/Adv360-Pro-ZMK-dvorak-programmers/.env
